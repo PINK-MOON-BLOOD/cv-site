@@ -5,16 +5,35 @@ import './App.css'
 
 function App() {
     
+    const aboutRef = useRef(null);
+    const expRef = useRef(null);
+    const educationtRef = useRef(null);
+    const workRef = useRef(null);
+    const hobbeisRef = useRef(null);
+    const contactRef = useRef(null);
+
+    const SectionRefs = {
+        About: aboutRef,
+        Experience: expRef,
+        Education: educationtRef,
+        Work: workRef,
+        Hobbies: hobbeisRef,
+        Contact: contactRef,
+    };
+
+    const scrollIntoView = (ref) => {
+        ref.current?.scrollIntoView({ behavior: 'smooth' });
+};
 
     return(
         <>
-         <Header />
-         <About/>
-         <Experience />
-         <Education />
-         <Work />
-         <Hobbi />
-         <Contact />
+         <Header SectionRefs={SectionRefs}  scrollIntoView={scrollIntoView} />
+         <div ref={aboutRef}><About/></div>
+         <div ref={expRef}><Experience /></div>
+         <div ref={educationtRef}> <Education />  </div>
+         <div ref={workRef}><Work /></div>
+         <div ref={hobbeisRef}> <Hobbi /></div>
+         <div ref={contactRef}> <Contact /></div>
          <Footer />
         </>
     
@@ -24,10 +43,16 @@ function App() {
 
 export default App
 
-function Header(){
+function Header({SectionRefs,scrollIntoView}){
 
     const [active_nav, setActive] = useState(null);
     const topics = ['About', 'Experience', 'Education', 'Work', 'Hobbies', 'Contact'];
+
+    const NiceScroll = (topic, index) =>{
+        setActive(index)
+        scrollIntoView(SectionRefs[topic])
+    };
+        
 
     return(
         <>
@@ -37,7 +62,7 @@ function Header(){
                 <div className='topic_conteiner'>
                 <ul className='topic_list'>
                     {topics.map((topic, index)=>(
-                        <li key={index} className={`topic_item ${active_nav == index ? 'active': ''}`} onClick={()=>setActive(index)}>
+                        <li key={index} className={`topic_item ${active_nav == index ? 'active': ''}`} onClick={()=>NiceScroll(topic,index)}>
                             {topic}
                         </li>
                     ))}
