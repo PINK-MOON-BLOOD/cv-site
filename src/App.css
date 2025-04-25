@@ -6,24 +6,85 @@
 
 .header_title{
   color: black;
+  text-align: center;
   font-size: xx-large;
 }
-ul{
+.topic_conteiner{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+.topic_list{
   padding: 0;
   margin: 0;
   gap: 50px;
   display: flex;  
   list-style: none;
 }
-ul li{
-  color: black;
+.topic_list .topic_item{
+  position: relative;
+  color: rgb(0, 0, 0);
   font-size: large;
+  border-bottom: 3px solid transparent;
+  transition: color 0.3s ease, border-color 0.3s ease 0.2s
 }
-ul li:hover{
+.topic_list .topic_item:hover{
   cursor: pointer;
-  color: rgb(218, 144, 144);
-  transition: 0.3s ease-in-out;
+  color: rgb(128, 128, 128);
+  transition: 0.4s ease-in-out;
 }
+.topic_list .topic_item::before{
+  content: ''; 
+  position: absolute;
+  background-color: black;
+  height: 2px;
+  bottom: -2px;
+  left: -1px;
+  width: 0;
+  transition: width 0.5s ease-in-out;
+  border-radius: 10px;
+}
+.topic_list .topic_item:hover::before{
+  width: 100%;
+  
+}
+.topic_item.active {
+  cursor: pointer;  
+  border-bottom: 3px solid black; 
+  
+}
+
+
+
+.about_topic, .experience_topic, .education_topic, .work_topic, .contact_topic, .hobbi_topic{
+  position: relative;
+  color: black;
+    
+}
+.about_topic::before, .experience_topic::before, .education_topic::before, .work_topic::before , .contact_topic::before ,.hobbi_topic::before{
+  content: ''; 
+  position: absolute;
+  background-color: black;
+  height: 2px;
+  bottom: -2px;
+  left: -1px;
+  width: 100%;
+}
+.about_text_conteiner{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.about_text{
+  text-align: center;
+  width: 70%;
+  color: black;
+}
+.contact_item, .hobbi_item, .worlk_item{
+  color: black;
+}
+
 .footer_conteiner{
   
   width: 100%;

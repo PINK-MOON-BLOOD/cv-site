@@ -1,12 +1,20 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
+    
+
     return(
         <>
          <Header />
+         <About/>
+         <Experience />
+         <Education />
+         <Work />
+         <Hobbi />
+         <Contact />
          <Footer />
         </>
     
@@ -17,19 +25,25 @@ function App() {
 export default App
 
 function Header(){
+
+    const [active_nav, setActive] = useState(null);
+    const topics = ['About', 'Experience', 'Education', 'Work', 'Hobbies', 'Contact'];
+
     return(
         <>
             <div className='Header_conteiner'>
-                <h1 className='header_title'>Paul Kovtun</h1>
-            <ul>
-                <li>About</li>
-                <li>Experience</li>
-                <li>Education</li>
-                <li>Work</li>
-                <li>Hobbi</li>
-                <li>Contact</li>
-                
-            </ul>
+                <h1 className='header_title'>CV Web-Site</h1>
+
+                <div className='topic_conteiner'>
+                <ul className='topic_list'>
+                    {topics.map((topic, index)=>(
+                        <li key={index} className={`topic_item ${active_nav == index ? 'active': ''}`} onClick={()=>setActive(index)}>
+                            {topic}
+                        </li>
+                    ))}
+                </ul>
+                </div>
+           
             </div>
             
         </>
@@ -38,26 +52,84 @@ function Header(){
 
 
 function About(){
-    return
+    return(
+        <>
+            <div className='about_conteiner'>
+                <h1 className='about_topic'>About</h1>
+
+                <div className='about_text_conteiner'>
+                <p className='about_text'>Creative and results-driven professional with a growth mindset and a passion for innovative problem-solving.
+                    Proven ability to adapt quickly, communicate effectively, and deliver value across diverse teams and projects.</p>
+                </div>
+            
+            </div>
+        </>
+    )
 }
 
 function Experience(){
-    return
+    return(
+        <>
+            <div className='experience_conteiner'>
+                <h1 className='experience_topic'>Experience</h1>
+            </div>
+        </>
+    )
 }
 
 function Education(){
-    return
+    return(
+        <>
+            <div className='education_conteiner'>
+                <h1 className='education_topic'>Education</h1>
+            </div>
+        </>
+    )
 }
 
 function Work(){
-    return
+    return(
+        <>
+            <div className='work_conteiner'>
+                <h1 className='work_topic'>Work</h1>
+                <h2 className='work_topic_job'></h2>
+                <p className='work_namejob'></p>
+                <ul className='work_list'>
+                    <li className='worlk_item'>Creative and results-driven professional with a growth mindset and a passion for innovative problem-solving. Proven ability to adapt quickly, communicate effectively, and deliver value across diverse teams and projects.</li>
+                </ul>
+            </div>
+        </>
+    )
 }
 
 function Contact(){
-    return
+
+    const contacts = ['email' ,'linkenid' , 'git', ' telegram'];
+    return(
+        <>
+            <div className='contact_conteiner'>
+            <h1 className='contact_topic'>Contact</h1>
+                <ul className='contact_list'>
+                    <li className='contact_item'>Creative and results-driven professional with a growth mindset and a passion for innovative problem-solving. Proven ability to adapt quickly, communicate effectively, and deliver value across diverse teams and projects.</li>
+                    <li className='contact_item'>Creative and results-driven professional with a growth mindset and a passion for innovative problem-solving. Proven ability to adapt quickly, communicate effectively, and deliver value across diverse teams and projects.</li>
+                    <li className='contact_item'>Creative and results-driven professional with a growth mindset and a passion for innovative problem-solving. Proven ability to adapt quickly, communicate effectively, and deliver value across diverse teams and projects.</li>
+                    <li className='contact_item'>Creative and results-driven professional with a growth mindset and a passion for innovative problem-solving. Proven ability to adapt quickly, communicate effectively, and deliver value across diverse teams and projects.</li>
+                </ul>
+            </div>
+        </>
+    )
 }
 function Hobbi(){
-    return
+    return(
+        <>
+            <div className='hobbi_conteiner'>
+                <h1 className='hobbi_topic'>Hobbies</h1>
+                <ul className='hobbi_list'>
+                    <li className='hobbi_item'>Creative and results-driven professional with a growth mindset and a passion for innovative problem-solving. Proven ability to adapt quickly, communicate effectively, and deliver value across diverse teams and projects.</li>
+                </ul>
+            </div>
+        </>
+    )
 }
 
 function Footer(){
@@ -65,7 +137,7 @@ function Footer(){
         <>
             <footer>
                 <div className='footer_conteiner'>
-                    <h1 className='year'> ~Create in 2025 by PussyWillow~ </h1>
+                    <h1 className='year'> ~ Create in 2025 by PussyWillow ~ </h1>
                 </div>
             </footer>
         </>
