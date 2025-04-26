@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import html2pdf from 'html2pdf.js';
 import './App.css'
 
 function App() {
@@ -11,6 +10,7 @@ function App() {
     const workRef = useRef(null);
     const hobbeisRef = useRef(null);
     const contactRef = useRef(null);
+   
 
     const SectionRefs = {
         About: aboutRef,
@@ -25,9 +25,27 @@ function App() {
         ref.current?.scrollIntoView({ behavior: 'smooth' });
 };
 
+
+    const contentPDFRef = useRef(null);
+    const downloadToPDF = () =>{
+       
+        const options = {
+            margin: 1,
+            filename: 'CV_PDF',
+            image: {type: 'jpeg', quality: 1.0},
+            html2canvas: {scale: 3},
+            jsPDF: {unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        html2pdf().set(options).from(contentPDFRef.current).save();
+    };
+
     return(
         <>
-         <Header SectionRefs={SectionRefs}  scrollIntoView={scrollIntoView} />
+         <Header SectionRefs={SectionRefs}  scrollIntoView={scrollIntoView}  downloadToPDF={downloadToPDF}/>
+
+         <div ref={contentPDFRef}>
+
          <div ref={aboutRef}><About/></div>
          <div ref={expRef}><Experience /></div>
          <div ref={educationtRef}> <Education />  </div>
@@ -35,6 +53,10 @@ function App() {
          <div ref={hobbeisRef}> <Hobbi /></div>
          <div ref={contactRef}> <Contact /></div>
          <Footer />
+
+         </div>
+
+         
         </>
     
         
@@ -43,7 +65,7 @@ function App() {
 
 export default App
 
-function Header({SectionRefs,scrollIntoView}){
+function Header({SectionRefs,scrollIntoView, downloadToPDF}){
 
     const [active_nav, setActive] = useState(null);
     const topics = ['About', 'Experience', 'Education', 'Work', 'Hobbies', 'Contact'];
@@ -56,6 +78,7 @@ function Header({SectionRefs,scrollIntoView}){
 
     return(
         <>
+        
             <div className='Header_conteiner'>
                 <h1 className='header_title'>CV Web-Site</h1>
 
@@ -69,6 +92,10 @@ function Header({SectionRefs,scrollIntoView}){
                 </ul>
                 </div>
            
+            </div>
+
+            <div className='dwnld'>
+                    <img src="src\assets\image.png" alt="Download in PDF"  className='dwnld_button' onClick={()=>(downloadToPDF())}/>
             </div>
             
         </>
@@ -120,7 +147,7 @@ function Work(){
                 <h2 className='work_topic_job'></h2>
                 <p className='work_namejob'></p>
                 <ul className='work_list'>
-                    <li className='worlk_item'>Creative and results-driven professional with a growth mindset and a passion for innovative problem-solving. Proven ability to adapt quickly, communicate effectively, and deliver value across diverse teams and projects.</li>
+                    <li className='worlk_item'></li>
                 </ul>
             </div>
         </>
@@ -129,17 +156,18 @@ function Work(){
 
 function Contact(){
 
-    const contacts = ['email' ,'linkenid' , 'git', ' telegram'];
+    const contacts = ['Email' ,'Linkenid' , 'GitHub', 'Telegram'];
+    const contact_link = ['https://www.youtube.com/watch?v=dT4qNVaRnHg&list=RDpXiYINYS7Bo&index=4',
+                            'https://find-a-friend-jet.vercel.app/',
+                            'https://github.com/PINK-MOON-BLOOD', 
+                            'https://t.me/PINK_MOON_BLOOD'];
     return(
         <>
             <div className='contact_conteiner'>
             <h1 className='contact_topic'>Contact</h1>
-                <ul className='contact_list'>
-                    <li className='contact_item'>Creative and results-driven professional with a growth mindset and a passion for innovative problem-solving. Proven ability to adapt quickly, communicate effectively, and deliver value across diverse teams and projects.</li>
-                    <li className='contact_item'>Creative and results-driven professional with a growth mindset and a passion for innovative problem-solving. Proven ability to adapt quickly, communicate effectively, and deliver value across diverse teams and projects.</li>
-                    <li className='contact_item'>Creative and results-driven professional with a growth mindset and a passion for innovative problem-solving. Proven ability to adapt quickly, communicate effectively, and deliver value across diverse teams and projects.</li>
-                    <li className='contact_item'>Creative and results-driven professional with a growth mindset and a passion for innovative problem-solving. Proven ability to adapt quickly, communicate effectively, and deliver value across diverse teams and projects.</li>
-                </ul>
+               {contacts.map((contact, index)=>(
+                  <a href={contact_link[index]}  className='contact_items'>{contact}</a>
+               ))}
             </div>
         </>
     )
@@ -150,7 +178,7 @@ function Hobbi(){
             <div className='hobbi_conteiner'>
                 <h1 className='hobbi_topic'>Hobbies</h1>
                 <ul className='hobbi_list'>
-                    <li className='hobbi_item'>Creative and results-driven professional with a growth mindset and a passion for innovative problem-solving. Proven ability to adapt quickly, communicate effectively, and deliver value across diverse teams and projects.</li>
+                    <li className='hobbi_item'></li>
                 </ul>
             </div>
         </>
@@ -168,3 +196,9 @@ function Footer(){
         </>
     )
 }
+{/* <ul className='contact_list'>
+                    <li className='contact_item'></li>
+                    <li className='contact_item'></li>
+                    <li className='contact_item'></li>
+                    <li className='contact_item'></li>
+                </ul> */}
